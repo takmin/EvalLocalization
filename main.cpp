@@ -76,9 +76,9 @@ bool ParseCommandLine(int argc, char * argv[],
 		("scoreTh,c", value<float>()->default_value(0.5), "threshold of score")
 		("overlapTh,o", value<float>()->default_value(0.5), "threshold of overlap")
 		("draw,d", value<std::string>(), "directory to save result images which draw true positive and false positive with threshold '-st' and '-ot'")
-		("truePos,t", value<std::string>(), "output true positive file with threshold '-st' and '-ot'")
-		("falsePos,f", value<std::string>(), "output false positive file with threshold '-st' and '-ot'")
-		("rpCurve,r", value<std::string>(), "generate recall-precision curve with threshold '-ot'");
+		("truePos,t", value<std::string>(), "output true positive file with threshold '-s' and '-o'")
+		("falsePos,f", value<std::string>(), "output false positive file with threshold '-s' and '-o'")
+		("rpCurve,r", value<std::string>(), "generate recall-precision curve with threshold '-o'");
 
 	variables_map argmap;
 	try{

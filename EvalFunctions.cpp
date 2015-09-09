@@ -167,16 +167,13 @@ namespace eval{
 		int h = ground_truth.size();
 		if (h < w)
 			h = w;
+		else if (w < h)
+			w = h;
 
-		cv::Mat score_matrix(h, w, CV_32FC1);
+		cv::Mat score_matrix = cv::Mat::zeros(h, w, CV_32FC1);
 		for (int r = 0; r < ground_truth.size(); r++){
-			for (int c = 0; c < w; c++){
+			for (int c = 0; c < detect_positions.size(); c++){
 				score_matrix.at<float>(r, c) = calcRectOverlap(detect_positions[c], ground_truth[r]);
-			}
-		}
-		for (int r = ground_truth.size(); r < h; r++){
-			for (int c = 0; c < w; c++){
-				score_matrix.at<float>(r, c) = 0;
 			}
 		}
 		cv::Mat cost_matrix = -score_matrix + 1;
@@ -186,7 +183,7 @@ namespace eval{
 
 		binded_index.resize(detect_positions.size());
 		overlap_score.resize(detect_positions.size(), 0);
-		for (int i = 0; i < permutation.size(); i++){
+		for (int i = 0; i < detect_positions.size(); i++){
 			binded_index[i] = permutation[i];
 			if (permutation[i] >= 0)
 				overlap_score[i] = score_matrix.at<float>(permutation[i], i);
